@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Lang } from '../../i18n/types';
+import { t } from '../../i18n/ui';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'bg' } }, { params: { lang: 'en' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+const strings = t(lang);
+
+const content = lang === 'bg' ? {
+  title: 'Политика за бисквитки',
+  body: 'Използваме необходими бисквитки за сесия и сигурност на маркетинг сайта. Аналитични бисквитки (ако се активират) ще бъдат описани тук преди пускане. Можете да управлявате предпочитанията от браузъра си.',
+} : {
+  title: 'Cookie Policy',
+  body: 'We use essential cookies for session and security on the marketing site. Analytics cookies (if enabled) will be described here before launch. You can manage preferences in your browser.',
+};
+---
+
+<BaseLayout lang={lang} title={`${content.title} | Nentropy`} description={content.title} currentPath={Astro.url.pathname}>
+  <article class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <h1 class="text-4xl font-bold text-purple-deep">{content.title}</h1>
+    <p class="mt-8 text-ink/80 leading-relaxed">{content.body}</p>
+  </article>
+</BaseLayout>

@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { t, langPath } from '../../../../i18n/ui';
+import type { Lang } from '../../../../i18n/types';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'bg' } }, { params: { lang: 'en' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+const strings = t(lang);
+
+const docs = (await getCollection('docs'))
+  .filter((d) => d.data.section === 'integrations')
+  .sort((a, b) => a.data.order - b.data.order);
+
+const intro = lang === 'bg'
+  ? 'API и интеграции за ERP екипи. Пълната конфигурация е в приложението на app.joinnentropy.com/integrations.'
+  : 'API and integrations for ERP teams. Full configuration lives in the app at app.joinnentropy.com/integrations.';
+---
+
+<BaseLayout lang={lang} title={`${strings.docs.title} | Nentropy`} description={intro} currentPath={Astro.url.pathname}>
+  <div class="mx-auto flex max-w-7xl flex-col gap-12 px-4 py-16 lg:flex-row lg:px-8">
+    <aside class="lg:w-64 shrink-0">
+      <nav class="sticky top-24 space-y-1" aria-label="Docs">
+        <p class="text-xs font-semibold uppercase tracking-wide text-steel mb-4">{strings.docs.overview}</p>
+        {docs.map((doc) => (
+          <a
+            href={langPath(lang, `/docs/integrations/${doc.slug}`)}
+            class="block rounded-lg px-3 py-2 text-sm font-medium text-ink/80 hover:bg-white/80 hover:text-purple-deep"
+          >
+            {doc.data.title}
+          </a>
+        ))}
+      </nav>
+      <a href="https://app.joinnentropy.com/integrations" class="btn-phoenix mt-8 w-full text-center text-xs" target="_blank" rel="noopener">
+        {lang === 'bg' ? 'Отвори в приложението' : 'Open in app'}
+      </a>
+    </aside>
+    <main class="min-w-0 flex-1">
+      <h1 class="text-4xl font-bold text-purple-deep">{strings.docs.title}</h1>
+      <p class="mt-4 text-ink/70">{intro}</p>
+      <div class="mt-12 grid gap-4">
+        {docs.map((doc) => (
+          <a href={langPath(lang, `/docs/integrations/${doc.slug}`)} class="card-surface block hover:border-purple-mid/40">
+            <h2 class="font-bold text-purple-deep">{doc.data.title}</h2>
+            {doc.data.description && <p class="mt-2 text-sm text-ink/70">{doc.data.description}</p>}
+          </a>
+        ))}
+      </div>
+    </main>
+  </div>
+</BaseLayout>

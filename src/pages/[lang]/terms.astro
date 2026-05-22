@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Lang } from '../../i18n/types';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'bg' } }, { params: { lang: 'en' } }];
+}
+
+const lang = Astro.params.lang as 'bg' | 'en';
+
+const content = lang === 'bg' ? {
+  title: 'Общи условия',
+  updated: 'Последна актуализация: май 2026',
+  sections: [
+    { h: '1. Услуга', p: 'Nentropy предоставя софтуер като услуга (SaaS) за организиране на съответствие във веригата на доставки. Платформата не предоставя правен съвет и не гарантира регулаторно одобрение.' },
+    { h: '2. Акаунт', p: 'Клиентът носи отговорност за точността на въведените данни и за достъпа на потребителите в организацията.' },
+    { h: '3. Пробен период и абонамент', p: 'Пробен период от 7 дни, след което важат избраният план и условията на Stripe за плащане.' },
+    { h: '4. Интелектуална собственост', p: 'Платформата и марките принадлежат на Nentropy. Клиентът запазва правата върху своите данни.' },
+    { h: '5. Ограничение на отговорност', p: 'В максимално допустимата от закона степен отговорността е ограничена до платените такси за последните 12 месеца.' },
+    { h: '6. Приложимо право', p: 'Българско право, компетентни съдилища в София, освак ако законът изисква друго.' },
+  ],
+} : {
+  title: 'Terms of Service',
+  updated: 'Last updated: May 2026',
+  sections: [
+    { h: '1. Service', p: 'Nentropy provides SaaS to help organize supply chain compliance. The platform does not provide legal advice or guarantee regulatory approval.' },
+    { h: '2. Account', p: 'The customer is responsible for data accuracy and user access within the organization.' },
+    { h: '3. Trial and subscription', p: '7-day trial, then the selected plan and Stripe payment terms apply.' },
+    { h: '4. Intellectual property', p: 'Platform and trademarks belong to Nentropy. The customer retains rights to their data.' },
+    { h: '5. Limitation of liability', p: 'To the maximum extent permitted by law, liability is limited to fees paid in the last 12 months.' },
+    { h: '6. Governing law', p: 'Bulgarian law, courts in Sofia, unless mandatory law requires otherwise.' },
+  ],
+};
+---
+
+<BaseLayout lang={lang} title={`${content.title} | Nentropy`} description={content.title} currentPath={Astro.url.pathname}>
+  <article class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+    <h1 class="text-4xl font-bold text-purple-deep">{content.title}</h1>
+    <p class="mt-2 text-sm text-steel">{content.updated}</p>
+    <div class="mt-12 space-y-8">
+      {content.sections.map((s) => (
+        <section>
+          <h2 class="text-xl font-semibold text-purple-deep">{s.h}</h2>
+          <p class="mt-3 text-ink/80 leading-relaxed">{s.p}</p>
+        </section>
+      ))}
+    </div>
+  </article>
+</BaseLayout>

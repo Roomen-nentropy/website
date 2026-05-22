@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import type { Lang } from '../../i18n/types';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'bg' } }, { params: { lang: 'en' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+
+const content = lang === 'bg' ? {
+  title: 'Политика за поверителност',
+  updated: 'Последна актуализация: май 2026',
+} : {
+  title: 'Privacy Policy',
+  updated: 'Last updated: May 2026',
+};
+---
+
+<BaseLayout lang={lang} title={`${content.title} | Nentropy`} description={content.title} currentPath={Astro.url.pathname}>
+  <article class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8 prose-nentropy">
+    <h1>{content.title}</h1>
+    <p class="text-sm text-steel">{content.updated}</p>
+    {lang === 'bg' ? (
+      <>
+        <p>Nentropy („ние") обработва лични данни в съответствие с GDPR и приложимото българско законодателство.</p>
+        <h2>Какви данни събираме</h2>
+        <p>Име, имейл, фирмени данни при регистрация; данни за съответствие, които вие и доставчиците въвеждате; технически логове.</p>
+        <h2>Цели</h2>
+        <p>Предоставяне на услугата, поддръжка, подобряване на продукта, изпълнение на договор.</p>
+        <h2>Съхранение</h2>
+        <p>Данните се съхраняват в ЕС. Сроковете за записи за съответствие следват логиката на продукта (2 или 5 години според роля).</p>
+        <h2>Вашите права</h2>
+        <p>Достъп, корекция, изтриване, ограничаване, преносимост, възражение — <a href="mailto:hello@joinnentropy.com">hello@joinnentropy.com</a>.</p>
+        <h2>Подизпълнители</h2>
+        <p>Хостинг, имейл (Loops), плащания (Stripe), файлово съхранение (S3) — при договори за обработка.</p>
+      </>
+    ) : (
+      <>
+        <p>Nentropy ("we") processes personal data in accordance with GDPR and applicable law.</p>
+        <h2>What we collect</h2>
+        <p>Name, email, company data on registration; compliance data you and suppliers enter; technical logs.</p>
+        <h2>Purposes</h2>
+        <p>Providing the service, support, product improvement, contract performance.</p>
+        <h2>Storage</h2>
+        <p>Data is stored in the EU. Compliance retention follows product logic (2 or 5 years by role).</p>
+        <h2>Your rights</h2>
+        <p>Access, rectification, erasure, restriction, portability, objection — <a href="mailto:hello@joinnentropy.com">hello@joinnentropy.com</a>.</p>
+        <h2>Subprocessors</h2>
+        <p>Hosting, email (Loops), payments (Stripe), file storage (S3) — under data processing agreements.</p>
+      </>
+    )}
+  </article>
+</BaseLayout>

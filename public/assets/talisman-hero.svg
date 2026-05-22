@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 320">
+  <rect width="400" height="320" rx="24" fill="#FAF7F2"/>
+  <circle cx="120" cy="120" r="50" fill="#6B3FA0"/>
+  <circle cx="105" cy="115" r="6" fill="#FAF7F2"/>
+  <circle cx="135" cy="115" r="6" fill="#FAF7F2"/>
+  <path d="M105 135 Q120 145 135 135" stroke="#FAF7F2" stroke-width="3" fill="none"/>
+  <rect x="90" y="170" width="60" height="70" rx="16" fill="#5C2D82"/>
+  <rect x="220" y="60" width="150" height="200" rx="14" fill="#fff" stroke="#46628B" stroke-width="2"/>
+  <rect x="240" y="85" width="110" height="14" rx="5" fill="#3D1F5C" opacity="0.15"/>
+  <rect x="240" y="110" width="80" height="10" rx="4" fill="#22c55e" opacity="0.5"/>
+  <rect x="240" y="130" width="90" height="10" rx="4" fill="#46628B" opacity="0.2"/>
+  <circle cx="340" cy="220" r="22" fill="#FFBA08"/>
+  <text x="328" y="226" font-size="12" fill="#2A2D33">QR</text>
+</svg>

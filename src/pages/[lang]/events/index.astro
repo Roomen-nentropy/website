@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { t, langPath } from '../../../i18n/ui';
+import type { Lang } from '../../../i18n/types';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'bg' } }, { params: { lang: 'en' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+const strings = t(lang);
+
+const all = (await getCollection('events'))
+  .filter((e) => e.data.locale === lang && !e.data.draft)
+  .sort((a, b) => a.data.date.valueOf() - b.data.date.valueOf());
+
+const upcoming = all.filter((e) => e.data.status === 'upcoming');
+const past = all.filter((e) => e.data.status === 'past').reverse();
+---
+
+<BaseLayout lang={lang} title={`${strings.events.title} | Nentropy`} description={strings.events.title} currentPath={Astro.url.pathname}>
+  <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <h1 class="text-4xl font-bold text-purple-deep">{strings.events.title}</h1>
+
+    {upcoming.length > 0 && (
+      <div class="mt-12">
+        <h2 class="text-2xl font-bold text-purple-deep">{strings.events.upcoming}</h2>
+        <div class="mt-8 grid gap-6 sm:grid-cols-2">
+          {upcoming.map((ev) => (
+            <article class="card-surface border-l-4 border-phoenix-flame">
+              <time class="text-sm text-steel">{ev.data.date.toLocaleDateString(lang === 'bg' ? 'bg-BG' : 'en-GB')}</time>
+              <h3 class="mt-2 text-xl font-bold">
+                <a href={langPath(lang, `/events/${ev.slug}`)} class="hover:text-phoenix-ember">{ev.data.title}</a>
+              </h3>
+              {ev.data.location && <p class="mt-1 text-sm text-ink/70">{ev.data.location}</p>}
+              {ev.data.registrationUrl && (
+                <a href={ev.data.registrationUrl} class="btn-phoenix mt-4 inline-flex text-xs" target="_blank" rel="noopener">
+                  {strings.events.register}
+                </a>
+              )}
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+
+    {past.length > 0 && (
+      <div class="mt-16">
+        <h2 class="text-2xl font-bold text-purple-deep">{strings.events.past}</h2>
+        <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {past.map((ev) => (
+            <article class="card-surface">
+              <time class="text-sm text-steel">{ev.data.date.toLocaleDateString(lang === 'bg' ? 'bg-BG' : 'en-GB')}</time>
+              <h3 class="mt-2 font-bold">
+                <a href={langPath(lang, `/events/${ev.slug}`)} class="text-purple-deep hover:text-phoenix-ember">{ev.data.title}</a>
+              </h3>
+            </article>
+          ))}
+        </div>
+      </div>
+    )}
+  </section>
+</BaseLayout>

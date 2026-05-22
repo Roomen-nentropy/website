@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 360">
+  <rect width="600" height="360" rx="12" fill="#fff" stroke="#46628B" stroke-width="2"/>
+  <rect x="0" y="0" width="600" height="48" fill="#3D1F5C"/>
+  <text x="24" y="30" fill="#fff" font-size="14" font-family="system-ui">Suppliers</text>
+  <rect x="24" y="64" width="552" height="44" rx="6" fill="#FAF7F2" stroke="#E5E0D8"/>
+  <circle cx="48" cy="86" r="8" fill="#22c55e" opacity="0.7"/>
+  <rect x="72" y="74" width="120" height="10" rx="3" fill="#2A2D33" opacity="0.2"/>
+  <rect x="24" y="116" width="552" height="44" rx="6" fill="#fff" stroke="#E5E0D8"/>
+  <circle cx="48" cy="138" r="8" fill="#22c55e" opacity="0.7"/>
+  <rect x="72" y="126" width="120" height="10" rx="3" fill="#2A2D33" opacity="0.2"/>
+  <rect x="24" y="168" width="552" height="44" rx="6" fill="#FAF7F2" stroke="#E5E0D8"/>
+  <circle cx="48" cy="190" r="8" fill="#F48C06" opacity="0.7"/>
+  <rect x="24" y="220" width="552" height="44" rx="6" fill="#fff" stroke="#E5E0D8"/>
+  <circle cx="48" cy="242" r="8" fill="#F48C06" opacity="0.7"/>
+  <rect x="24" y="272" width="552" height="44" rx="6" fill="#FAF7F2" stroke="#E5E0D8"/>
+  <circle cx="48" cy="294" r="8" fill="#22c55e" opacity="0.7"/>
+</svg>

@@ -1,0 +1,32 @@
+---
+interface Props {
+  class?: string;
+  delay?: number;
+}
+const { class: className = '', delay = 0 } = Astro.props;
+---
+
+<div
+  class={`section-reveal ${className}`}
+  data-reveal
+  style={delay ? `--reveal-delay: ${delay}ms` : undefined}
+>
+  <slot />
+</div>
+
+<script>
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => {
+        if (e.isIntersecting) {
+          const el = e.target as HTMLElement;
+          const delay = el.style.getPropertyValue('--reveal-delay') || '0';
+          setTimeout(() => el.classList.add('is-visible'), parseInt(delay, 10));
+          observer.unobserve(el);
+        }
+      });
+    },
+    { threshold: 0.12, rootMargin: '0px 0px -40px 0px' }
+  );
+  document.querySelectorAll('[data-reveal]').forEach((el) => observer.observe(el));
+</script>

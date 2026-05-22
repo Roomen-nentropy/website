@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SolutionPage from '../../../components/SolutionPage.astro';
+import { solutions, type SolutionSlug } from '../../../i18n/solutions';
+import type { Lang } from '../../../i18n/types';
+
+export function getStaticPaths() {
+  const langs: Lang[] = ['bg', 'en'];
+  return langs.flatMap((lang) =>
+    solutions.map((s) => ({
+      params: { lang, slug: s.slug },
+    }))
+  );
+}
+
+const lang = Astro.params.lang as Lang;
+const slug = Astro.params.slug as SolutionSlug;
+const solution = solutions.find((s) => s.slug === slug)!;
+const copy = lang === 'bg' ? solution.bg : solution.en;
+const currentPath = Astro.url.pathname;
+---
+
+<BaseLayout
+  lang={lang}
+  title={`${copy.title} | Nentropy`}
+  description={copy.short}
+  currentPath={currentPath}
+>
+  <SolutionPage lang={lang} slug={slug} />
+</BaseLayout>

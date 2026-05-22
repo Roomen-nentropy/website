@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+import { t } from '../../../i18n/ui';
+import type { Lang } from '../../../i18n/types';
+
+export async function getStaticPaths() {
+  const events = await getCollection('events');
+  return events
+    .filter((e) => !e.data.draft)
+    .map((ev) => ({
+      params: { lang: ev.data.locale, slug: ev.slug },
+      props: { ev },
+    }));
+}
+
+const { ev } = Astro.props;
+const lang = Astro.params.lang as Lang;
+const strings = t(lang);
+const { Content } = await ev.render();
+---
+
+<BaseLayout lang={lang} title={`${ev.data.title} | Nentropy`} description={ev.data.description ?? ev.data.title} currentPath={Astro.url.pathname}>
+  <article class="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8">
+    <header>
+      <span class={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${ev.data.status === 'upcoming' ? 'bg-phoenix-gold/30 text-phoenix-ember' : 'bg-steel/10 text-steel'}`}>
+        {ev.data.status === 'upcoming' ? strings.events.upcoming : strings.events.past}
+      </span>
+      <h1 class="mt-4 text-4xl font-bold text-purple-deep">{ev.data.title}</h1>
+      <p class="mt-4 text-steel">
+        {ev.data.date.toLocaleDateString(lang === 'bg' ? 'bg-BG' : 'en-GB')}
+        {ev.data.location && ` · ${ev.data.location}`}
+      </p>
+      {ev.data.registrationUrl && ev.data.status === 'upcoming' && (
+        <a href={ev.data.registrationUrl} class="btn-phoenix mt-6 inline-flex" target="_blank" rel="noopener">
+          {strings.events.register}
+        </a>
+      )}
+    </header>
+
+    {ev.data.heroImage && (
+      <img src={ev.data.heroImage} alt="" class="mt-10 w-full rounded-2xl object-cover max-h-96" />
+    )}
+
+    <div class="prose-nentropy mt-10">
+      <Content />
+    </div>
+
+    {ev.data.gallery.length > 0 && (
+      <div class="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3">
+        {ev.data.gallery.map((src) => (
+          <img src={src} alt="" class="rounded-xl object-cover aspect-video w-full" loading="lazy" />
+        ))}
+      </div>
+    )}
+
+    {ev.data.videos.length > 0 && (
+      <div class="mt-12 space-y-6">
+        {ev.data.videos.map((v) => (
+          <div>
+            <h3 class="font-semibold text-purple-deep mb-2">{v.title}</h3>
+            <div class="aspect-video rounded-2xl overflow-hidden bg-ink/5">
+              <iframe src={v.url} class="h-full w-full" allowfullscreen loading="lazy" title={v.title}></iframe>
+            </div>
+          </div>
+        ))}
+      </div>
+    )}
+
+    {ev.data.downloads.length > 0 && (
+      <ul class="mt-8 flex flex-wrap gap-4">
+        {ev.data.downloads.map((d) => (
+          <li><a href={d.file} class="btn-secondary text-sm">{d.label}</a></li>
+        ))}
+      </ul>
+    )}
+  </article>
+</BaseLayout>

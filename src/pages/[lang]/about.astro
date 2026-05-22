@@ -1,0 +1,58 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SectionReveal from '../../components/SectionReveal.astro';
+import ConsultationCTA from '../../components/ConsultationCTA.astro';
+import { t } from '../../i18n/ui';
+import type { Lang } from '../../i18n/types';
+
+export function getStaticPaths() {
+  return [{ params: { lang: 'bg' } }, { params: { lang: 'en' } }];
+}
+
+const lang = Astro.params.lang as Lang;
+const strings = t(lang);
+
+const content = lang === 'bg' ? {
+  title: 'За нас',
+  subtitle: 'Правим управлението на веригата за доставки просто, прозрачно и човешко',
+  sections: [
+    { h: 'Проблемът, който решаваме', p: 'Глобалните вериги за доставки са изправени пред безпрецедентен регулаторен натиск. От EUDR до изисквания за опаковки и етикети, екипите се давят в сложност — месеци интерпретация, проследяване на доставчици, геолокация и планини документация с остарели инструменти.' },
+    { h: 'Нашето решение', p: 'Nentropy е работно пространство за съответствие: EUDR надлежна проверка и Регламент 2025/40 в един акаунт. Намаляваме тежестта от месеци до седмици — без да твърдим, че заместваме правен съвет.' },
+    { h: 'Нашата история', p: 'Започна с въпрос: защо правенето на нещата както трябва е толкова болезнено? През февруари 2025 разговор с ръководител верига за доставки — дванадесет седмици ръчно събиране на геолокация от 300+ доставчици, после отлагане на EUDR. „Това не може да е начинът." Беше права. Затова го създадохме.' },
+    { h: 'Нашите ценности', p: 'Прозрачност · Партньорство · Простота · Ориентирани към хората · Подкрепа' },
+    { h: 'Нашата визия', p: 'Съответствието да не е кошмар, а отметка в списък. EUDR е началото — платформата се развива с регулациите.' },
+  ],
+} : {
+  title: 'About us',
+  subtitle: 'Making supply chain compliance simple, transparent, and human',
+  sections: [
+    { h: 'The problem we solve', p: 'Global supply chains face unprecedented regulatory pressure. From EUDR to packaging and labelling requirements, teams drown in complexity—months interpreting rules, tracking suppliers, geolocation, and documentation with tools not built for this reality.' },
+    { h: 'Our solution', p: 'Nentropy is a compliance workspace: EUDR due diligence and Regulation 2025/40 in one account. We reduce the burden from months to weeks—without claiming to replace legal advice.' },
+    { h: 'Our story', p: 'It started with a question: why does doing things right have to hurt? In February 2025, a supply chain lead had spent twelve weeks collecting geolocation from 300+ suppliers—then EUDR was postponed. "This can\'t be THE way." She was right. So we built a better one.' },
+    { h: 'Our values', p: 'Transparency · Partnership · Simplicity · People-centric · Support' },
+    { h: 'Our vision', p: 'Compliance shouldn\'t be a nightmare—it should be a checkbox. EUDR is the beginning; the platform evolves with regulations.' },
+  ],
+};
+---
+
+<BaseLayout lang={lang} title={`${content.title} | Nentropy`} description={content.subtitle} currentPath={Astro.url.pathname}>
+  <section class="px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+    <div class="mx-auto max-w-3xl text-center">
+      <h1 class="text-4xl font-bold text-purple-deep">{content.title}</h1>
+      <p class="mt-6 text-xl text-ink/75">{content.subtitle}</p>
+    </div>
+  </section>
+  <div class="mx-auto max-w-3xl px-4 pb-24 sm:px-6 lg:px-8">
+    {content.sections.map((s, i) => (
+      <SectionReveal delay={i * 80}>
+        <section class="mb-12">
+          <h2 class="text-2xl font-bold text-purple-deep">{s.h}</h2>
+          <p class="mt-4 text-ink/80 leading-relaxed">{s.p}</p>
+        </section>
+      </SectionReveal>
+    ))}
+    <div class="mt-12 text-center">
+      <ConsultationCTA lang={lang} variant="phoenix" />
+    </div>
+  </div>
+</BaseLayout>

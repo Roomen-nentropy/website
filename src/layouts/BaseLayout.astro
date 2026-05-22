@@ -1,0 +1,47 @@
+---
+import '../styles/global.css';
+import type { Lang } from '../i18n/types';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  lang: Lang;
+  title: string;
+  description: string;
+  currentPath?: string;
+  ogImage?: string;
+}
+
+const { lang, title, description, currentPath = Astro.url.pathname, ogImage = '/assets/og-default.svg' } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const otherLang = lang === 'bg' ? 'en' : 'bg';
+const altPathname = Astro.url.pathname.replace(`/${lang}/`, `/${otherLang}/`).replace(`/${lang}`, `/${otherLang}`) || `/${otherLang}/`;
+const hrefBg = new URL(lang === 'bg' ? Astro.url.pathname : altPathname, Astro.site);
+const hrefEn = new URL(lang === 'en' ? Astro.url.pathname : altPathname, Astro.site);
+---
+
+<!doctype html>
+<html lang={lang === 'bg' ? 'bg' : 'en'}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" hreflang="bg" href={hrefBg} />
+    <link rel="alternate" hreflang="en" href={hrefEn} />
+    <link rel="alternate" hreflang="x-default" href={hrefBg} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+    <meta property="og:type" content="website" />
+    <title>{title}</title>
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <Header lang={lang} currentPath={currentPath} />
+    <main class="flex-1">
+      <slot />
+    </main>
+    <Footer lang={lang} />
+  </body>
+</html>

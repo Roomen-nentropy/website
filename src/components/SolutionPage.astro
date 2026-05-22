@@ -1,0 +1,146 @@
+---
+import type { Lang } from '../i18n/types';
+import { getSolutionCopy, getSolution, type SolutionSlug } from '../i18n/solutions';
+import { t, langPath } from '../i18n/ui';
+import SectionReveal from './SectionReveal.astro';
+import ConsultationCTA from './ConsultationCTA.astro';
+
+interface Props {
+  lang: Lang;
+  slug: SolutionSlug;
+}
+
+const { lang, slug } = Astro.props;
+const { copy, consultationContext, icon, related } = getSolutionCopy(slug, lang);
+const strings = t(lang);
+---
+
+<article>
+  <section class="relative overflow-hidden px-4 py-16 sm:px-6 lg:px-8 lg:py-24">
+    <div class="absolute inset-0 bg-purple-gradient opacity-[0.07]"></div>
+    <div class="relative mx-auto max-w-7xl">
+      <div class="grid items-center gap-12 lg:grid-cols-2">
+        <div>
+          <span class="text-4xl" aria-hidden="true">{icon}</span>
+          <h1 class="mt-4 text-4xl font-bold tracking-tight text-purple-deep sm:text-5xl">{copy.title}</h1>
+          <p class="mt-6 text-lg text-ink/80 leading-relaxed">{copy.hero}</p>
+          <div class="mt-8 flex flex-wrap gap-4">
+            <ConsultationCTA lang={lang} context={consultationContext} variant="phoenix" />
+            <a href="https://app.joinnentropy.com/auth" class="btn-secondary">{strings.cta.trial}</a>
+          </div>
+        </div>
+        <div class="relative flex justify-center">
+          <img
+            src="/assets/talisman-hero.svg"
+            alt=""
+            class="max-h-80 w-full max-w-md animate-float object-contain"
+            width="400"
+            height="320"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <SectionReveal>
+    <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-purple-deep">{strings.solutions.challenges}</h2>
+      <ul class="mt-8 grid gap-4 sm:grid-cols-3">
+        {copy.challenges.map((c) => (
+          <li class="card-surface text-sm text-ink/80">{c}</li>
+        ))}
+      </ul>
+    </section>
+  </SectionReveal>
+
+  <SectionReveal>
+    <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-purple-deep">{strings.solutions.helps}</h2>
+      <div class="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {copy.helps.map((h) => (
+          <div class="card-surface">
+            <h3 class="font-semibold text-purple-deep">{h.title}</h3>
+            <p class="mt-2 text-sm text-ink/70">{h.desc}</p>
+          </div>
+        ))}
+      </div>
+      {copy.matrix && (
+        <p class="mt-8 text-center text-sm font-medium text-steel">
+          {lang === 'bg' ? 'Подходящи профили: ' : 'Relevant personas: '}{copy.matrix}
+        </p>
+      )}
+    </section>
+  </SectionReveal>
+
+  <SectionReveal>
+    <section class="bg-white/40 px-4 py-16 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-7xl">
+        <h2 class="text-2xl font-bold text-purple-deep">{strings.home.howTitle}</h2>
+        <div class="mt-8 grid gap-6 md:grid-cols-3">
+          <div class="rounded-2xl border-l-4 border-phoenix-flame bg-white/70 p-6">
+            <span class="text-2xl font-bold text-phoenix-ember">1</span>
+            <p class="mt-2 font-semibold">{strings.home.step1Title}</p>
+            <p class="mt-1 text-sm text-ink/70">{strings.home.step1Desc}</p>
+          </div>
+          <div class="rounded-2xl border-l-4 border-purple-mid bg-white/70 p-6">
+            <span class="text-2xl font-bold text-purple-deep">2</span>
+            <p class="mt-2 font-semibold">{strings.home.step2Title}</p>
+            <p class="mt-1 text-sm text-ink/70">{strings.home.step2Desc}</p>
+          </div>
+          <div class="rounded-2xl border-l-4 border-steel bg-white/70 p-6">
+            <span class="text-2xl font-bold text-steel">3</span>
+            <p class="mt-2 font-semibold">{strings.home.step3Title}</p>
+            <p class="mt-1 text-sm text-ink/70">{strings.home.step3Desc}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </SectionReveal>
+
+  <SectionReveal>
+    <section class="mx-auto max-w-3xl px-4 py-16 sm:px-6 lg:px-8">
+      <h2 class="text-2xl font-bold text-purple-deep">{strings.solutions.faq}</h2>
+      <div class="mt-8 space-y-4">
+        {copy.faq.map((item) => (
+          <details class="card-surface group">
+            <summary class="cursor-pointer font-semibold text-purple-deep marker:content-none flex justify-between items-center">
+              {item.q}
+              <span class="text-phoenix-flame transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <p class="mt-4 text-sm text-ink/70 leading-relaxed">{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  </SectionReveal>
+
+  {related.length > 0 && (
+    <section class="mx-auto max-w-7xl px-4 pb-16 sm:px-6 lg:px-8">
+      <h2 class="text-lg font-semibold text-steel">{strings.solutions.related}</h2>
+      <div class="mt-4 flex flex-wrap gap-3">
+        {related.map((rel) => {
+          const r = getSolution(rel);
+          const title = lang === 'bg' ? r.bg.title : r.en.title;
+          return (
+            <a href={langPath(lang, `/solutions/${rel}`)} class="rounded-full border border-purple-mid/20 bg-white/80 px-4 py-2 text-sm font-medium hover:border-phoenix-flame hover:text-phoenix-ember">
+              {title}
+            </a>
+          );
+        })}
+      </div>
+    </section>
+  )}
+
+  <section class="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
+    <div class="rounded-3xl bg-purple-gradient p-8 text-center text-white sm:p-12">
+      <h2 class="text-2xl font-bold">{strings.home.finalCtaTitle}</h2>
+      <p class="mx-auto mt-4 max-w-xl text-white/85">{strings.home.finalCtaDesc}</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <ConsultationCTA lang={lang} context={consultationContext} variant="phoenix" />
+        <a href={langPath(lang, '/contact')} class="btn-secondary !border-white/40 !text-white hover:!bg-white/10">
+          {strings.cta.contact}
+        </a>
+      </div>
+    </div>
+  </section>
+</article>
