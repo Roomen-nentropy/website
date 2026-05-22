@@ -1,6 +1,7 @@
 ---
 import type { Lang } from '../i18n/types';
 import { t, langPath } from '../i18n/ui';
+import { swapLangInPath } from '../i18n/paths';
 import { getSolutionNav } from '../i18n/nav';
 
 interface Props {
@@ -12,7 +13,7 @@ const { lang, currentPath = '' } = Astro.props;
 const strings = t(lang);
 const solutions = getSolutionNav(lang);
 const otherLang = lang === 'bg' ? 'en' : 'bg';
-const switchPath = currentPath.replace(`/${lang}`, `/${otherLang}`) || `/${otherLang}`;
+const switchPath = swapLangInPath(currentPath || Astro.url.pathname, lang, otherLang);
 ---
 
 <header class="sticky top-0 z-50 border-b border-white/50 bg-cream/80 backdrop-blur-xl">

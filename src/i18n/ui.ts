@@ -1,4 +1,5 @@
 import type { Lang } from './types';
+import { withBase } from './paths';
 
 export const ui = {
   bg: {
@@ -152,6 +153,7 @@ export function t(lang: Lang) {
 }
 
 export function langPath(lang: Lang, path: string) {
-  const clean = path.startsWith('/') ? path : `/${path}`;
-  return `/${lang}${clean === '/' ? '' : clean}`;
+  const clean = path.startsWith('/') ? path.slice(1) : path;
+  if (!clean || clean === '/') return withBase(`${lang}/`);
+  return withBase(`${lang}/${clean}`);
 }

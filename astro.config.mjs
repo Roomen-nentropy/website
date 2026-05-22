@@ -9,6 +9,7 @@ const base = process.env.SITE_BASE ?? '/website';
 export default defineConfig({
   site,
   base,
+  trailingSlash: 'always',
   integrations: [
     tailwind({ applyBaseStyles: false }),
     sitemap({

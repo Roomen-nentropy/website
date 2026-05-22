@@ -1,3 +1,5 @@
 ---
-return Astro.redirect('/bg/');
+import { langPath } from '../i18n/ui';
+
+return Astro.redirect(langPath('bg', '/'));
 ---
