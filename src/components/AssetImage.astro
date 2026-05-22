@@ -1,0 +1,25 @@
+---
+import { assetUrl } from '../i18n/paths';
+
+interface Props {
+  src: string;
+  alt?: string;
+  class?: string;
+  width?: number | string;
+  height?: number | string;
+  loading?: 'lazy' | 'eager';
+}
+
+const { src, alt = '', class: className = '', width, height, loading } = Astro.props;
+const resolved = assetUrl(src);
+---
+
+<img
+  src={resolved}
+  alt={alt}
+  class={className}
+  width={width}
+  height={height}
+  loading={loading}
+  decoding="async"
+/>

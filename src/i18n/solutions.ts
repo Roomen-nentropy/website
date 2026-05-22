@@ -39,7 +39,7 @@ export const solutions: SolutionContent[] = [
     slug: 'eudr',
     consultationContext: 'eudr',
     icon: '🌲',
-    heroImage: '/assets/hero-eudr.svg',
+    heroImage: 'assets/hero-eudr.svg',
     related: ['ppwr', 'supply-chain', 'trade-warehousing'],
     bg: {
       title: 'EUDR',
@@ -94,7 +94,7 @@ export const solutions: SolutionContent[] = [
     slug: 'ppwr',
     consultationContext: 'ppwr',
     icon: '📦',
-    heroImage: '/assets/hero-ppwr.svg',
+    heroImage: 'assets/hero-ppwr.svg',
     related: ['eudr', 'manufacturing', 'food-industry'],
     bg: {
       title: 'Регламент 2025/40',

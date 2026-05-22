@@ -2,6 +2,8 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { t } from '../../../i18n/ui';
+import AssetImage from '../../../components/AssetImage.astro';
+import { assetUrl } from '../../../i18n/paths';
 import type { Lang } from '../../../i18n/types';
 
 export async function getStaticPaths() {
@@ -39,7 +41,7 @@ const { Content } = await ev.render();
     </header>
 
     {ev.data.heroImage && (
-      <img src={ev.data.heroImage} alt="" class="mt-10 w-full rounded-2xl object-cover max-h-96" />
+      <AssetImage src={ev.data.heroImage} alt="" class="mt-10 w-full rounded-2xl object-cover max-h-96" />
     )}
 
     <div class="prose-nentropy mt-10">
@@ -49,7 +51,7 @@ const { Content } = await ev.render();
     {ev.data.gallery.length > 0 && (
       <div class="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3">
         {ev.data.gallery.map((src) => (
-          <img src={src} alt="" class="rounded-xl object-cover aspect-video w-full" loading="lazy" />
+          <AssetImage src={src} alt="" class="rounded-xl object-cover aspect-video w-full" loading="lazy" />
         ))}
       </div>
     )}
@@ -70,7 +72,7 @@ const { Content } = await ev.render();
     {ev.data.downloads.length > 0 && (
       <ul class="mt-8 flex flex-wrap gap-4">
         {ev.data.downloads.map((d) => (
-          <li><a href={d.file} class="btn-secondary text-sm">{d.label}</a></li>
+          <li><a href={assetUrl(d.file)} class="btn-secondary text-sm">{d.label}</a></li>
         ))}
       </ul>
     )}

@@ -1,4 +1,10 @@
-﻿/** Path helpers that respect Astro `base` (e.g. /website/ on GitHub Pages). */
+﻿/** Public folder URL (logo, talisman, screenshots). Accepts `/assets/x` or `assets/x`. */
+export function assetUrl(path: string): string {
+  const clean = path.replace(/^\//, '');
+  return withBase(clean);
+}
+
+/** Path helpers that respect Astro `base` (e.g. /website/ on GitHub Pages). */
 export function withBase(path: string): string {
   const base = import.meta.env.BASE_URL.trim().replace(/\/+$/, '') || '';
   const segment = path.startsWith('/') ? path : `/${path}`;

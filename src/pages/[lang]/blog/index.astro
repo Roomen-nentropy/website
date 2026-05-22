@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 import { t, langPath } from '../../../i18n/ui';
+import AssetImage from '../../../components/AssetImage.astro';
 import type { Lang } from '../../../i18n/types';
 
 export function getStaticPaths() {
@@ -23,7 +24,7 @@ const posts = (await getCollection('blog'))
       {posts.map((post) => (
         <article class="card-surface flex flex-col">
           {post.data.coverImage && (
-            <img src={post.data.coverImage} alt="" class="mb-4 -mx-2 -mt-2 w-[calc(100%+1rem)] rounded-t-2xl object-cover h-40" />
+            <AssetImage src={post.data.coverImage} alt="" class="mb-4 -mx-2 -mt-2 w-[calc(100%+1rem)] rounded-t-2xl object-cover h-40" />
           )}
           <time class="text-xs font-medium text-steel" datetime={post.data.date.toISOString()}>
             {post.data.date.toLocaleDateString(lang === 'bg' ? 'bg-BG' : 'en-GB')}

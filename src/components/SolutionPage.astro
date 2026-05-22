@@ -4,6 +4,7 @@ import { getSolutionCopy, getSolution, type SolutionSlug } from '../i18n/solutio
 import { t, langPath } from '../i18n/ui';
 import SectionReveal from './SectionReveal.astro';
 import ConsultationCTA from './ConsultationCTA.astro';
+import AssetImage from './AssetImage.astro';
 
 interface Props {
   lang: Lang;
@@ -11,7 +12,8 @@ interface Props {
 }
 
 const { lang, slug } = Astro.props;
-const { copy, consultationContext, icon, related } = getSolutionCopy(slug, lang);
+const { copy, consultationContext, icon, related, heroImage } = getSolutionCopy(slug, lang);
+const heroSrc = heroImage ?? 'assets/talisman-hero.svg';
 const strings = t(lang);
 ---
 
@@ -30,12 +32,12 @@ const strings = t(lang);
           </div>
         </div>
         <div class="relative flex justify-center">
-          <img
-            src="/assets/talisman-hero.svg"
+          <AssetImage
+            src={heroSrc}
             alt=""
             class="max-h-80 w-full max-w-md animate-float object-contain"
-            width="400"
-            height="320"
+            width={400}
+            height={320}
           />
         </div>
       </div>

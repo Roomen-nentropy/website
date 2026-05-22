@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionReveal from '../../components/SectionReveal.astro';
 import SolutionCard from '../../components/SolutionCard.astro';
 import ConsultationCTA from '../../components/ConsultationCTA.astro';
+import AssetImage from '../../components/AssetImage.astro';
 import { solutionGateway } from '../../i18n/solutions';
 import { t, langPath } from '../../i18n/ui';
 import type { Lang } from '../../i18n/types';
@@ -41,13 +42,13 @@ const pageDesc = strings.home.heroSubtitle;
       <div class="relative">
         <div class="grid grid-cols-2 gap-4">
           <figure class="card-surface !p-4">
-            <img src="/assets/talisman-burdened.svg" alt="" class="w-full rounded-xl" width="280" height="220" />
+            <AssetImage src="assets/talisman-burdened.svg" alt="" class="w-full rounded-xl" width={280} height={220} />
             <figcaption class="mt-2 text-center text-xs font-medium text-ink/60">
               {lang === 'bg' ? 'Преди: ръчни задачи' : 'Before: manual overload'}
             </figcaption>
           </figure>
           <figure class="card-surface !p-4 mt-8">
-            <img src="/assets/talisman-calm.svg" alt="" class="w-full rounded-xl" width="280" height="220" />
+            <AssetImage src="assets/talisman-calm.svg" alt="" class="w-full rounded-xl" width={280} height={220} />
             <figcaption class="mt-2 text-center text-xs font-medium text-purple-deep">
               {lang === 'bg' ? 'С Nentropy' : 'With Nentropy'}
             </figcaption>
@@ -96,8 +97,8 @@ const pageDesc = strings.home.heroSubtitle;
   <SectionReveal>
     <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
       <div class="grid gap-6 sm:grid-cols-2">
-        <img src="/assets/screenshot-dashboard.svg" alt="" class="card-surface !p-2 w-full" width="600" height="360" />
-        <img src="/assets/screenshot-suppliers.svg" alt="" class="card-surface !p-2 w-full" width="600" height="360" />
+        <AssetImage src="assets/screenshot-dashboard.svg" alt="" class="card-surface !p-2 w-full" width={600} height={360} />
+        <AssetImage src="assets/screenshot-suppliers.svg" alt="" class="card-surface !p-2 w-full" width={600} height={360} />
       </div>
       <p class="mt-6 text-center text-sm text-ink/50">
         {lang === 'bg' ? 'Платформата в действие — табло и доставчици' : 'Platform in action — dashboard and suppliers'}
