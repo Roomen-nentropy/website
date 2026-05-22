@@ -4,13 +4,15 @@ Repository: [github.com/Roomen-nentropy/website](https://github.com/Roomen-nentr
 
 **Your site URL:** [https://roomen-nentropy.github.io/website/](https://roomen-nentropy.github.io/website/)
 
-## Enable (one time)
+## Enable (one time — required if the site is blank/404)
 
 1. Open [Settings → Pages](https://github.com/Roomen-nentropy/website/settings/pages)
-2. Under **Build and deployment**, set **Source** to **GitHub Actions**
-3. Push to `main` (or run the **Deploy to GitHub Pages** workflow manually under Actions)
-4. Wait for the workflow to finish (green checkmark)
-5. Visit the URL above
+2. Under **Build and deployment**, set **Source** to **Deploy from a branch**
+3. Branch: **`gh-pages`** · Folder: **`/ (root)`** · Save
+4. Wait for the green **Deploy to GitHub Pages** workflow on `main` (pushes `dist` to `gh-pages`)
+5. Visit [https://roomen-nentropy.github.io/website/](https://roomen-nentropy.github.io/website/)
+
+Optional: run the **Enable GitHub Pages** workflow under Actions (needs repo admin).
 
 ## If the site 404s
 
