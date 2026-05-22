@@ -1,5 +1,4 @@
----
-import { langPath } from '../i18n/ui';
-
-return Astro.redirect(langPath('bg', '/'));
+﻿---
+const dest = `${import.meta.env.BASE_URL}bg/`.replace(/\/{2,}/g, '/');
+return Astro.redirect(dest);
 ---
