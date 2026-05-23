@@ -6,7 +6,7 @@ location: "Sofia, Bulgaria"
 status: upcoming
 locale: en
 registrationUrl: "mailto:hello@joinnentropy.com?subject=Compliance%20Summit%202026"
-heroImage: /assets/screenshot-dashboard.svg
+heroImage: /assets/screenshot-platform.png
 draft: false
 ---
 

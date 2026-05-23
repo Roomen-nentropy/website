@@ -77,4 +77,4 @@ Edit files in `src/content/docs/`. Set `order` for sidebar sorting.
 
 ## Preview locally
 
-Developers: `npm install` then `npm run dev` (requires Node 20+).
+Developers: `npm install` then `npm run dev` (Node 20+). Open **http://localhost:4321/bg/** — local dev uses site root `/`, not `/website/`.

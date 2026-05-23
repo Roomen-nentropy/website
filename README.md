@@ -6,10 +6,12 @@ Astro 5 static site for [joinnentropy.com](https://www.joinnentropy.com) — bil
 
 ```bash
 npm install
-npm run dev      # http://localhost:4321
-npm run build
-npm run preview
+npm run dev      # then open http://localhost:4321/bg/  (root redirects to /bg/)
+npm run build    # production uses base /website for GitHub Pages
+npm run preview  # after build: http://localhost:4321/website/bg/
 ```
+
+If `npm run dev` shows nothing in the browser, confirm the terminal still says `astro ... ready` and use **`/bg/`** not only the port root while an old tab cached `/website/`.
 
 ## Content
 

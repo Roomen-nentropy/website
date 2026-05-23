@@ -1,0 +1,28 @@
+---
+import type { ConsultationContext, Lang } from '../i18n/types';
+import { t, langPath } from '../i18n/ui';
+
+interface Props {
+  lang: Lang;
+  context?: ConsultationContext;
+  variant?: 'primary' | 'phoenix' | 'secondary';
+  label?: 'consultation' | 'demo' | 'contact';
+  class?: string;
+}
+
+const { lang, context = 'default', variant = 'primary', label = 'consultation', class: className = '' } = Astro.props;
+const strings = t(lang);
+
+const focus = context === 'eudr' || context === 'ppwr' ? 'rumen' : '';
+const href = `${langPath(lang, '/contact')}#consultation${focus ? `?focus=${focus}` : ''}`;
+
+const text =
+  label === 'demo' ? strings.cta.demo : label === 'contact' ? strings.cta.contact : strings.cta.consultation;
+
+const btnClass =
+  variant === 'phoenix' ? 'btn-phoenix' : variant === 'secondary' ? 'btn-secondary' : 'btn-primary';
+---
+
+<a href={href} class={`${btnClass} ${className}`}>
+  {text}
+</a>

@@ -1,27 +1,29 @@
 ---
 import type { Lang } from '../i18n/types';
 import { t, langPath } from '../i18n/ui';
-import AssetImage from './AssetImage.astro';
+import { brandAssets } from '../i18n/assets';
 import { getSolutionNav } from '../i18n/nav';
+import AssetImage from './AssetImage.astro';
 
 interface Props { lang: Lang; }
 const { lang } = Astro.props;
 const strings = t(lang);
 const solutions = getSolutionNav(lang);
 const year = new Date().getFullYear();
+const brochureUrl = 'https://roomen-nentropy.github.io/nentropy_brochure_ifsfocusdays/';
 ---
 
-<footer class="mt-auto border-t border-purple-deep/10 bg-white/50">
+<footer class="mt-auto border-t border-ink/8 bg-white">
   <div class="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
     <div class="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
       <div>
-        <AssetImage src="assets/logo.svg" alt={strings.siteName} class="mb-4 h-8" />
-        <p class="text-sm text-ink/70">{strings.tagline}</p>
+        <AssetImage src={brandAssets.logoColor} alt={strings.siteName} class="mb-4 h-9 w-auto" />
+        <p class="text-sm text-ink/70 leading-relaxed">{strings.tagline}</p>
       </div>
       <div>
         <h3 class="mb-3 text-sm font-semibold text-purple-deep">{strings.footer.product}</h3>
         <ul class="space-y-2">
-          {solutions.slice(0, 4).map((s) => (
+          {solutions.map((s) => (
             <li><a href={s.href} class="text-sm text-ink/70 hover:text-purple-deep">{s.label}</a></li>
           ))}
         </ul>
@@ -33,7 +35,7 @@ const year = new Date().getFullYear();
           <li><a href={langPath(lang, '/blog')} class="hover:text-purple-deep">{strings.nav.blog}</a></li>
           <li><a href={langPath(lang, '/events')} class="hover:text-purple-deep">{strings.nav.events}</a></li>
           <li><a href={langPath(lang, '/contact')} class="hover:text-purple-deep">{strings.nav.contact}</a></li>
-          <li><a href="https://app.joinnentropy.com/auth" class="hover:text-purple-deep">{strings.footer.appLogin}</a></li>
+          <li><a href={brochureUrl} class="hover:text-purple-deep" target="_blank" rel="noopener">{strings.footer.brochure}</a></li>
         </ul>
       </div>
       <div>
@@ -48,10 +50,6 @@ const year = new Date().getFullYear();
     </div>
     <div class="mt-10 flex flex-col items-center justify-between gap-4 border-t border-ink/10 pt-8 sm:flex-row">
       <p class="text-xs text-ink/50">© {year} Nentropy. {strings.footer.rights}</p>
-      <div class="flex gap-4 opacity-40" aria-hidden="true">
-        <span class="h-8 w-8 rounded-full bg-ink/10" title="Social — coming soon"></span>
-        <span class="h-8 w-8 rounded-full bg-ink/10" title="Social — coming soon"></span>
-      </div>
     </div>
   </div>
 </footer>

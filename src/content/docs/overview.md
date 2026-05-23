@@ -27,6 +27,6 @@ Returns service status for monitoring.
 
 ## Next steps
 
-1. Log in at [app.joinnentropy.com](https://app.joinnentropy.com/integrations)
-2. Create an API token with required scopes
+1. Request a demo via the [contact page](/bg/contact#consultation) (or `/en/contact#consultation`)
+2. After onboarding, create an API token with required scopes
 3. Configure webhooks if needed

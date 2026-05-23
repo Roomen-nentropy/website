@@ -3,9 +3,13 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
+    "build:css": "tailwindcss -i src/styles/global.css -o public/styles.css --minify",
+    "predev": "npm run build:css",
+    "prebuild": "npm run build:css",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "fetch-assets": "node scripts/fetch-brand-assets.mjs",
     "astro": "astro"
   },
   "dependencies": {

@@ -1,35 +1,31 @@
 ---
 import type { Lang } from '../i18n/types';
-import { langPath } from '../i18n/ui';
-import { t } from '../i18n/ui';
+import { langPath, t } from '../i18n/ui';
+import AssetImage from './AssetImage.astro';
 
 interface Props {
   lang: Lang;
   slug: string;
-  icon: string;
   title: string;
   short: string;
+  heroImage?: string;
 }
 
-const { lang, slug, icon, title, short } = Astro.props;
+const { lang, slug, title, short, heroImage } = Astro.props;
 const strings = t(lang);
 ---
 
-<a
-  href={langPath(lang, `/solutions/${slug}`)}
-  class="card-surface group flex flex-col gap-4"
->
-  <div class="flex items-start justify-between">
-    <span class="text-3xl" aria-hidden="true">{icon}</span>
-    <span class="rounded-full bg-phoenix-gold/20 px-2 py-0.5 text-xs font-semibold text-phoenix-ember opacity-0 transition-opacity group-hover:opacity-100">
-      →
+<a href={langPath(lang, `/solutions/${slug}`)} class="card-surface group flex h-full flex-col overflow-hidden !p-0">
+  {heroImage && (
+    <div class="art-frame !rounded-none !border-0 !border-b !border-ink/8 !bg-gradient-to-b from-purple-deep/[0.03] to-white">
+      <AssetImage src={heroImage} alt="" class="max-h-36" width={320} height={180} loading="lazy" />
+    </div>
+  )}
+  <div class="flex flex-1 flex-col p-5">
+    <h3 class="text-lg font-bold text-purple-deep transition-colors group-hover:text-phoenix-ember">{title}</h3>
+    <p class="mt-2 flex-1 text-sm leading-relaxed text-ink/65">{short}</p>
+    <span class="mt-4 text-sm font-semibold text-purple-mid group-hover:text-phoenix-ember">
+      {strings.cta.learnMore} →
     </span>
   </div>
-  <div>
-    <h3 class="text-lg font-bold text-purple-deep group-hover:text-phoenix-ember transition-colors">{title}</h3>
-    <p class="mt-2 text-sm text-ink/70 leading-relaxed">{short}</p>
-  </div>
-  <span class="mt-auto text-sm font-semibold text-purple-mid group-hover:text-phoenix-flame">
-    {strings.cta.learnMore}
-  </span>
 </a>

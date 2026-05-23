@@ -7,7 +7,7 @@ status: past
 locale: bg
 heroImage: /assets/screenshot-suppliers.svg
 gallery:
-  - /assets/screenshot-dashboard.svg
+  - /assets/screenshot-platform.png
   - /assets/screenshot-suppliers.svg
 videos: []
 downloads: []

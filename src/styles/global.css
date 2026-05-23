@@ -23,55 +23,142 @@
   }
 
   body {
-    @apply bg-cream text-ink font-sans antialiased;
-    background-image: theme('backgroundImage.mesh');
+    @apply bg-cream font-sans text-ink antialiased;
+    background-image:
+      radial-gradient(ellipse 80% 50% at 50% -20%, rgba(107, 63, 160, 0.07), transparent),
+      radial-gradient(ellipse 60% 40% at 100% 50%, rgba(244, 140, 6, 0.05), transparent);
     background-attachment: fixed;
+  }
+
+  h1,
+  h2,
+  h3 {
+    text-wrap: balance;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300;
-    background: linear-gradient(135deg, #3D1F5C 0%, #6B3FA0 100%);
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-200;
+    background: linear-gradient(135deg, #3d1f5c 0%, #5c2d82 100%);
   }
   .btn-primary:hover {
-    @apply shadow-xl -translate-y-0.5;
-    box-shadow: 0 12px 32px rgba(61, 31, 92, 0.35);
+    @apply -translate-y-px shadow-lg;
+    box-shadow: 0 8px 24px rgba(61, 31, 92, 0.28);
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-full border-2 border-purple-mid/30 bg-white/80 px-6 py-3 text-sm font-semibold text-purple-deep backdrop-blur transition-all duration-300 hover:border-phoenix-flame hover:text-phoenix-ember;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-purple-mid/25 bg-white px-6 py-3 text-sm font-semibold text-purple-deep shadow-sm transition-all duration-200 hover:border-phoenix-ember/40 hover:text-phoenix-ember;
   }
 
   .btn-phoenix {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-lg transition-all duration-300;
-    background: linear-gradient(135deg, #E85D04 0%, #F48C06 45%, #FFBA08 100%);
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white shadow-md transition-all duration-200;
+    background: linear-gradient(135deg, #e85d04 0%, #f48c06 55%, #ffba08 100%);
   }
   .btn-phoenix:hover {
-    @apply -translate-y-0.5 shadow-xl;
+    @apply -translate-y-px shadow-lg;
   }
 
   .card-surface {
-    @apply rounded-2xl border border-white/60 bg-white/70 p-6 shadow-sm backdrop-blur-md transition-all duration-300;
+    @apply rounded-2xl border bg-white p-6 shadow-sm;
+    border-color: rgba(42, 45, 51, 0.1);
   }
-  .card-surface:hover {
-    @apply -translate-y-1 shadow-lg border-purple-light/30;
+
+  a.card-surface:hover {
+    @apply -translate-y-0.5 shadow-md;
+    border-color: rgba(92, 45, 130, 0.25);
+  }
+
+  .section-pad {
+    @apply px-4 py-20 sm:px-6 lg:px-8 lg:py-24;
+  }
+
+  .section-label {
+    @apply text-xs font-semibold uppercase tracking-[0.2em] text-phoenix-ember;
+  }
+
+  .section-title {
+    @apply text-3xl font-bold tracking-tight text-purple-deep sm:text-4xl;
+  }
+
+  .section-lead {
+    @apply mt-4 text-lg leading-relaxed;
+    color: rgba(42, 45, 51, 0.7);
+  }
+
+  .art-frame {
+    @apply relative flex items-center justify-center overflow-hidden rounded-2xl border bg-gradient-to-b from-white via-white to-purple-deep/5 p-5;
+    border-color: rgba(42, 45, 51, 0.08);
+  }
+  .art-frame img {
+    @apply max-h-56 w-full object-contain;
+    filter: drop-shadow(0 8px 16px rgba(42, 45, 51, 0.08));
+  }
+
+  .story-panel {
+    @apply rounded-3xl border bg-white p-6 shadow-sm sm:p-8;
+    border-color: rgba(42, 45, 51, 0.1);
+  }
+
+  .story-compare {
+    @apply grid grid-cols-2 gap-4 sm:gap-6;
+  }
+
+  .story-compare figcaption {
+    @apply mt-3 text-center text-xs font-medium leading-snug;
+    color: rgba(42, 45, 51, 0.55);
+  }
+
+  .story-compare .is-after figcaption {
+    @apply text-purple-deep;
+  }
+
+  .app-showcase {
+    @apply overflow-hidden rounded-2xl border bg-white shadow-xl;
+    border-color: rgba(42, 45, 51, 0.12);
+  }
+
+  .app-showcase-bar {
+    @apply flex items-center gap-2 border-b px-4 py-2.5;
+    border-color: rgba(42, 45, 51, 0.08);
+    background: #f6f7f9;
+  }
+
+  .app-showcase-url {
+    @apply ml-2 truncate rounded-md bg-white px-3 py-1 text-xs text-ink/50;
+    border: 1px solid rgba(42, 45, 51, 0.08);
+  }
+
+  .app-showcase-img {
+    @apply block w-full bg-white;
+  }
+
+  .browser-dot {
+    @apply h-2.5 w-2.5 rounded-full;
+    background: rgba(42, 45, 51, 0.18);
   }
 
   .section-reveal {
-    @apply opacity-0 translate-y-6;
+    @apply translate-y-3 opacity-100 transition-all duration-500 ease-out;
   }
   .section-reveal.is-visible {
-    @apply opacity-100 translate-y-0 transition-all duration-700 ease-out;
+    @apply translate-y-0;
   }
 
-  .gradient-text {
-    @apply bg-clip-text text-transparent;
-    background-image: linear-gradient(135deg, #3D1F5C 0%, #E85D04 60%, #FFBA08 100%);
+  @media (prefers-reduced-motion: no-preference) {
+    .section-reveal:not(.is-visible) {
+      @apply translate-y-5 opacity-0;
+    }
   }
 
   .nav-link {
-    @apply text-sm font-medium text-ink/80 transition-colors hover:text-purple-deep;
+    @apply text-sm font-medium transition-colors hover:text-purple-deep;
+    color: rgba(42, 45, 51, 0.75);
+  }
+
+  .site-header {
+    @apply sticky top-0 z-50 border-b bg-white/90 shadow-sm backdrop-blur-md;
+    border-color: rgba(42, 45, 51, 0.1);
   }
 }
 

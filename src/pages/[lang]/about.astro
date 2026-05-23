@@ -1,7 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionReveal from '../../components/SectionReveal.astro';
-import ConsultationCTA from '../../components/ConsultationCTA.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
 import { t } from '../../i18n/ui';
 import type { Lang } from '../../i18n/types';
 
@@ -52,7 +52,7 @@ const content = lang === 'bg' ? {
       </SectionReveal>
     ))}
     <div class="mt-12 text-center">
-      <ConsultationCTA lang={lang} variant="phoenix" />
+      <ContactCTA lang={lang} variant="phoenix" label="demo" />
     </div>
   </div>
 </BaseLayout>

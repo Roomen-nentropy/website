@@ -2,8 +2,9 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import SectionReveal from '../../components/SectionReveal.astro';
 import SolutionCard from '../../components/SolutionCard.astro';
-import ConsultationCTA from '../../components/ConsultationCTA.astro';
+import ContactCTA from '../../components/ContactCTA.astro';
 import AssetImage from '../../components/AssetImage.astro';
+import { brandAssets, solutionHeroImages } from '../../i18n/assets';
 import { solutionGateway } from '../../i18n/solutions';
 import { t, langPath } from '../../i18n/ui';
 import type { Lang } from '../../i18n/types';
@@ -23,35 +24,34 @@ const pageDesc = strings.home.heroSubtitle;
 ---
 
 <BaseLayout lang={lang} title={pageTitle} description={pageDesc} currentPath={currentPath}>
-  <section class="relative overflow-hidden px-4 py-20 sm:px-6 lg:px-8 lg:py-28">
-    <div class="pointer-events-none absolute -right-32 -top-32 h-96 w-96 rounded-full bg-phoenix-flame/10 blur-3xl"></div>
-    <div class="pointer-events-none absolute -left-24 bottom-0 h-80 w-80 rounded-full bg-purple-mid/15 blur-3xl"></div>
-    <div class="relative mx-auto grid max-w-7xl items-center gap-12 lg:grid-cols-2">
-      <div>
-        <p class="text-sm font-semibold uppercase tracking-widest text-phoenix-ember">{strings.tagline}</p>
-        <h1 class="mt-4 text-4xl font-bold leading-tight tracking-tight sm:text-5xl lg:text-6xl">
-          <span class="gradient-text">{strings.home.heroTitle}</span>
+  <section class="section-pad relative overflow-hidden">
+    <div class="relative mx-auto grid max-w-7xl items-center gap-14 lg:grid-cols-2 lg:gap-16">
+      <div class="max-w-xl">
+        <p class="section-label">{strings.tagline}</p>
+        <h1 class="mt-4 text-4xl font-bold leading-[1.15] tracking-tight text-purple-deep sm:text-5xl lg:text-[3.25rem]">
+          {strings.home.heroTitle}
         </h1>
-        <p class="mt-6 max-w-xl text-lg text-ink/75 leading-relaxed">{strings.home.heroSubtitle}</p>
-        <div class="mt-10 flex flex-wrap gap-4">
-          <ConsultationCTA lang={lang} variant="phoenix" />
-          <a href="https://app.joinnentropy.com/auth" class="btn-secondary">{strings.cta.trial}</a>
+        <p class="mt-6 text-lg leading-relaxed text-ink/70">{strings.home.heroSubtitle}</p>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <ContactCTA lang={lang} variant="phoenix" label="demo" />
+          <ContactCTA lang={lang} variant="secondary" label="consultation" />
         </div>
-        <p class="mt-4 text-xs text-ink/50">{lang === 'bg' ? '7 дни безплатен пробен период · Без кредитна карта' : '7-day free trial · No credit card required'}</p>
       </div>
-      <div class="relative">
-        <div class="grid grid-cols-2 gap-4">
-          <figure class="card-surface !p-4">
-            <AssetImage src="assets/talisman-burdened.svg" alt="" class="w-full rounded-xl" width={280} height={220} />
-            <figcaption class="mt-2 text-center text-xs font-medium text-ink/60">
-              {lang === 'bg' ? 'Преди: ръчни задачи' : 'Before: manual overload'}
-            </figcaption>
+
+      <div class="story-panel">
+        <p class="mb-6 text-center text-sm font-semibold text-purple-deep lg:text-left">{strings.home.storyTitle}</p>
+        <div class="story-compare">
+          <figure>
+            <div class="art-frame">
+              <AssetImage src={brandAssets.talisman.burdened} alt="" width={260} height={260} loading="eager" />
+            </div>
+            <figcaption>{strings.home.storyBefore}</figcaption>
           </figure>
-          <figure class="card-surface !p-4 mt-8">
-            <AssetImage src="assets/talisman-calm.svg" alt="" class="w-full rounded-xl" width={280} height={220} />
-            <figcaption class="mt-2 text-center text-xs font-medium text-purple-deep">
-              {lang === 'bg' ? 'С Nentropy' : 'With Nentropy'}
-            </figcaption>
+          <figure class="is-after">
+            <div class="art-frame ring-2 ring-phoenix-gold/30">
+              <AssetImage src={brandAssets.talisman.calm} alt="" width={260} height={260} loading="eager" />
+            </div>
+            <figcaption>{strings.home.storyAfter}</figcaption>
           </figure>
         </div>
       </div>
@@ -59,16 +59,22 @@ const pageDesc = strings.home.heroSubtitle;
   </section>
 
   <SectionReveal>
-    <section id="solutions" class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <div class="text-center">
-        <h2 class="text-3xl font-bold text-purple-deep">{strings.home.solutionsTitle}</h2>
-        <p class="mx-auto mt-4 max-w-2xl text-ink/70">{strings.home.solutionsSubtitle}</p>
+    <section id="solutions" class="section-pad mx-auto max-w-7xl border-t border-ink/8">
+      <div class="mx-auto max-w-2xl text-center">
+        <h2 class="section-title">{strings.home.solutionsTitle}</h2>
+        <p class="section-lead">{strings.home.solutionsSubtitle}</p>
       </div>
-      <div class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+      <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
         {solutionGateway.map((s) => {
           const copy = lang === 'bg' ? s.bg : s.en;
           return (
-            <SolutionCard lang={lang} slug={s.slug} icon={s.icon} title={copy.title} short={copy.short} />
+            <SolutionCard
+              lang={lang}
+              slug={s.slug}
+              title={copy.title}
+              short={copy.short}
+              heroImage={solutionHeroImages[s.slug]}
+            />
           );
         })}
       </div>
@@ -76,18 +82,20 @@ const pageDesc = strings.home.heroSubtitle;
   </SectionReveal>
 
   <SectionReveal>
-    <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <h2 class="text-center text-3xl font-bold text-purple-deep">{strings.home.howTitle}</h2>
-      <div class="mt-12 grid gap-8 md:grid-cols-3">
+    <section class="section-pad mx-auto max-w-7xl bg-white/60">
+      <div class="mx-auto max-w-2xl text-center">
+        <h2 class="section-title">{strings.home.howTitle}</h2>
+      </div>
+      <div class="mt-14 grid gap-6 md:grid-cols-3">
         {[
-          { n: '1', title: strings.home.step1Title, desc: strings.home.step1Desc, color: 'border-phoenix-flame' },
-          { n: '2', title: strings.home.step2Title, desc: strings.home.step2Desc, color: 'border-purple-mid' },
-          { n: '3', title: strings.home.step3Title, desc: strings.home.step3Desc, color: 'border-steel' },
+          { n: '01', title: strings.home.step1Title, desc: strings.home.step1Desc },
+          { n: '02', title: strings.home.step2Title, desc: strings.home.step2Desc },
+          { n: '03', title: strings.home.step3Title, desc: strings.home.step3Desc },
         ].map((step) => (
-          <div class={`card-surface border-t-4 ${step.color}`}>
-            <span class="text-3xl font-bold text-purple-deep/30">{step.n}</span>
-            <h3 class="mt-4 text-lg font-bold text-purple-deep">{step.title}</h3>
-            <p class="mt-2 text-sm text-ink/70">{step.desc}</p>
+          <div class="card-surface border-l-4 border-l-phoenix-ember/80 pl-5">
+            <span class="text-sm font-bold tabular-nums text-phoenix-ember">{step.n}</span>
+            <h3 class="mt-3 text-lg font-bold text-purple-deep">{step.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-ink/65">{step.desc}</p>
           </div>
         ))}
       </div>
@@ -95,39 +103,60 @@ const pageDesc = strings.home.heroSubtitle;
   </SectionReveal>
 
   <SectionReveal>
-    <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <div class="grid gap-6 sm:grid-cols-2">
-        <AssetImage src="assets/screenshot-dashboard.svg" alt="" class="card-surface !p-2 w-full" width={600} height={360} />
-        <AssetImage src="assets/screenshot-suppliers.svg" alt="" class="card-surface !p-2 w-full" width={600} height={360} />
+    <section class="section-pad mx-auto max-w-7xl">
+      <div class="mx-auto mb-10 max-w-2xl text-center">
+        <h2 class="section-title">{strings.home.proofTitle}</h2>
+        <p class="mt-3 text-ink/65">{strings.home.proofDesc}</p>
       </div>
-      <p class="mt-6 text-center text-sm text-ink/50">
-        {lang === 'bg' ? 'Платформата в действие — табло и доставчици' : 'Platform in action — dashboard and suppliers'}
-      </p>
+      <div class="app-showcase mx-auto max-w-6xl">
+        <div class="app-showcase-bar" aria-hidden="true">
+          <span class="browser-dot"></span>
+          <span class="browser-dot"></span>
+          <span class="browser-dot"></span>
+          <span class="app-showcase-url">qms.joinnentropy.com</span>
+        </div>
+        <AssetImage
+          src={brandAssets.screenshot}
+          alt={lang === 'bg' ? 'Регистър на доставчици в Nentropy' : 'Nentropy supplier register'}
+          class="app-showcase-img"
+          width={1440}
+          height={900}
+          loading="lazy"
+        />
+      </div>
     </section>
   </SectionReveal>
 
   <SectionReveal>
-    <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-      <div class="rounded-3xl border border-purple-mid/20 bg-white/60 p-8 text-center backdrop-blur sm:p-12">
-        <h2 class="text-2xl font-bold text-purple-deep">{strings.home.regulatoryTitle}</h2>
-        <p class="mx-auto mt-4 max-w-2xl text-ink/70">{strings.home.regulatoryDesc}</p>
-        <div class="mt-8 flex flex-wrap justify-center gap-4">
-          <a href={langPath(lang, '/solutions/eudr')} class="btn-primary">EUDR</a>
-          <a href={langPath(lang, '/solutions/ppwr')} class="btn-secondary">
-            {lang === 'bg' ? 'Регламент 2025/40' : 'Regulation 2025/40'}
-          </a>
+    <section class="section-pad mx-auto max-w-7xl">
+      <div class="grid items-center gap-12 rounded-3xl border border-ink/8 bg-white p-8 sm:p-12 lg:grid-cols-2">
+        <div class="art-frame mx-auto max-w-md lg:mx-0">
+          <AssetImage src={brandAssets.brochure.chaos} alt="" width={400} height={320} loading="lazy" />
+        </div>
+        <div>
+          <h2 class="section-title text-2xl sm:text-3xl">{strings.home.regulatoryTitle}</h2>
+          <p class="mt-4 leading-relaxed text-ink/70">{strings.home.regulatoryDesc}</p>
+          <div class="mt-8 flex flex-wrap gap-3">
+            <a href={langPath(lang, '/solutions/eudr')} class="btn-primary">EUDR</a>
+            <a href={langPath(lang, '/solutions/ppwr')} class="btn-secondary">
+              {lang === 'bg' ? 'Регламент 2025/40' : 'Regulation 2025/40'}
+            </a>
+          </div>
         </div>
       </div>
     </section>
   </SectionReveal>
 
   <section class="mx-auto max-w-7xl px-4 pb-24 sm:px-6 lg:px-8">
-    <div class="rounded-3xl bg-phoenix-gradient p-8 text-center text-white shadow-2xl sm:p-14">
-      <h2 class="text-3xl font-bold">{strings.home.finalCtaTitle}</h2>
-      <p class="mx-auto mt-4 max-w-xl text-white/90">{strings.home.finalCtaDesc}</p>
-      <div class="mt-10 flex flex-wrap justify-center gap-4">
-        <ConsultationCTA lang={lang} variant="primary" class="!bg-white !text-purple-deep hover:!bg-white/90" />
-        <a href={langPath(lang, '/contact')} class="rounded-full border-2 border-white/60 px-6 py-3 text-sm font-semibold hover:bg-white/10">
+    <div class="rounded-3xl bg-phoenix-gradient px-8 py-14 text-center text-white shadow-lg sm:px-14">
+      <h2 class="text-3xl font-bold tracking-tight sm:text-4xl">{strings.home.finalCtaTitle}</h2>
+      <p class="mx-auto mt-4 max-w-lg text-base leading-relaxed text-white/90">{strings.home.finalCtaDesc}</p>
+      <div class="mt-10 flex flex-wrap justify-center gap-3">
+        <ContactCTA lang={lang} label="demo" variant="primary" class="!bg-white !text-purple-deep hover:!bg-white/95" />
+        <a
+          href={langPath(lang, '/contact')}
+          class="inline-flex items-center rounded-full border border-white/50 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
+        >
           {strings.cta.contact}
         </a>
       </div>

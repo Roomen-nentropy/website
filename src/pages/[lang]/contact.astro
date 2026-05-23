@@ -1,6 +1,8 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import AssetImage from '../../components/AssetImage.astro';
 import { contacts } from '../../i18n/contacts';
+import { brandAssets } from '../../i18n/assets';
 import { t } from '../../i18n/ui';
 import type { Lang } from '../../i18n/types';
 
@@ -13,26 +15,39 @@ const strings = t(lang);
 const focus = Astro.url.searchParams.get('focus');
 const allContacts = contacts[lang];
 const visibleContacts = focus === 'rumen' ? allContacts.filter((c) => c.focus === 'rumen') : allContacts;
+const brochureUrl = 'https://roomen-nentropy.github.io/nentropy_brochure_ifsfocusdays/';
+const demoSubject = lang === 'bg' ? 'Заявка за демонстрация — Nentropy' : 'Demo request — Nentropy';
 ---
 
 <BaseLayout lang={lang} title={`${strings.contact.title} | Nentropy`} description={strings.contact.subtitle} currentPath={Astro.url.pathname}>
-  <section class="px-4 py-16 sm:px-6 lg:px-8">
-    <div class="mx-auto max-w-3xl text-center">
-      <h1 class="text-4xl font-bold text-purple-deep">{strings.contact.title}</h1>
-      <p class="mt-4 text-ink/70">{strings.contact.subtitle}</p>
-      {focus === 'rumen' && (
-        <p class="mt-2 text-sm font-medium text-phoenix-ember">{strings.contact.rumenOnly}</p>
-      )}
+  <section class="section-pad">
+    <div class="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-2">
+      <div>
+        <p class="section-label">{strings.nav.contact}</p>
+        <h1 class="mt-3 text-4xl font-bold text-purple-deep sm:text-5xl">{strings.contact.title}</h1>
+        <p class="mt-4 text-lg leading-relaxed text-ink/70">{strings.contact.subtitle}</p>
+        {focus === 'rumen' && (
+          <p class="mt-3 text-sm font-medium text-phoenix-ember">{strings.contact.rumenOnly}</p>
+        )}
+        <p class="mt-6 text-sm text-ink/60">
+          <a href={brochureUrl} class="font-semibold text-purple-mid hover:text-phoenix-ember" target="_blank" rel="noopener">
+            {strings.contact.brochureLink} →
+          </a>
+        </p>
+      </div>
+      <div class="art-frame hidden max-w-sm lg:flex">
+        <AssetImage src={brandAssets.talisman.handshake} alt="" width={320} height={320} />
+      </div>
     </div>
   </section>
 
   <section id="consultation" class="mx-auto max-w-4xl px-4 pb-24 sm:px-6 lg:px-8">
-    <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+    <div class={`grid gap-6 ${visibleContacts.length > 1 ? 'sm:grid-cols-2' : 'max-w-md mx-auto'}`}>
       {visibleContacts.map((person) => (
-        <div class="card-surface flex flex-col" data-focus={person.focus}>
-          <h2 class="text-lg font-bold text-purple-deep">{person.name}</h2>
+        <div class="card-surface flex flex-col">
+          <h2 class="text-xl font-bold text-purple-deep">{person.name}</h2>
           <p class="mt-1 text-sm text-steel">{person.role}</p>
-          <a href={`mailto:${person.email}`} class="mt-4 text-sm font-medium text-purple-mid hover:text-phoenix-ember">
+          <a href={`mailto:${person.email}`} class="mt-4 text-sm font-medium text-purple-mid hover:text-phoenix-ember break-all">
             {person.email}
           </a>
           {person.phone && (
@@ -41,32 +56,13 @@ const visibleContacts = focus === 'rumen' ? allContacts.filter((c) => c.focus ==
             </a>
           )}
           <a
-            href={`mailto:${person.email}?subject=${encodeURIComponent(strings.contact.consultation)}`}
-            class="btn-primary mt-6 text-center text-xs"
+            href={`mailto:${person.email}?subject=${encodeURIComponent(demoSubject)}`}
+            class="btn-phoenix mt-6 text-center text-sm"
           >
-            {strings.contact.consultation}
+            {strings.cta.demo}
           </a>
         </div>
       ))}
     </div>
-
-    <div class="mt-16 card-surface text-center">
-      <h2 class="text-xl font-bold text-purple-deep">
-        {lang === 'bg' ? 'Стартирайте безплатен пробен период' : 'Start your free trial'}
-      </h2>
-      <p class="mt-2 text-sm text-ink/70">
-        {lang === 'bg' ? '7 дни · app.joinnentropy.com' : '7 days · app.joinnentropy.com'}
-      </p>
-      <a href="https://app.joinnentropy.com/auth" class="btn-phoenix mt-6 inline-flex">
-        {strings.cta.trial}
-      </a>
-    </div>
   </section>
 </BaseLayout>
-
-<script>
-  const params = new URLSearchParams(window.location.search);
-  if (params.get('focus') === 'rumen') {
-    document.querySelectorAll('[data-focus="general"]')?.forEach((el) => el.remove());
-  }
-</script>

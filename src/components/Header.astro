@@ -2,8 +2,10 @@
 import type { Lang } from '../i18n/types';
 import { t, langPath } from '../i18n/ui';
 import { swapLangInPath } from '../i18n/paths';
-import AssetImage from './AssetImage.astro';
+import { brandAssets } from '../i18n/assets';
 import { getSolutionNav } from '../i18n/nav';
+import AssetImage from './AssetImage.astro';
+import ContactCTA from './ContactCTA.astro';
 
 interface Props {
   lang: Lang;
@@ -17,10 +19,10 @@ const otherLang = lang === 'bg' ? 'en' : 'bg';
 const switchPath = swapLangInPath(currentPath || Astro.url.pathname, lang, otherLang);
 ---
 
-<header class="sticky top-0 z-50 border-b border-white/50 bg-cream/80 backdrop-blur-xl">
-  <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-4 sm:px-6 lg:px-8">
-    <a href={langPath(lang, '/')} class="flex items-center gap-2 shrink-0" aria-label={strings.siteName}>
-      <AssetImage src="assets/logo.svg" alt="" class="h-8 w-auto" width={140} height={32} />
+<header class="site-header">
+  <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
+    <a href={langPath(lang, '/')} class="flex shrink-0 items-center gap-2" aria-label={strings.siteName}>
+      <AssetImage src={brandAssets.logoColor} alt="" class="h-9 w-auto" width={160} height={36} />
     </a>
 
     <nav class="hidden items-center gap-1 lg:flex" aria-label="Main">
@@ -33,7 +35,7 @@ const switchPath = swapLangInPath(currentPath || Astro.url.pathname, lang, other
           {strings.nav.solutions}
           <svg class="h-4 w-4 opacity-60" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
         </button>
-        <div class="invisible absolute left-0 top-full z-50 min-w-[280px] rounded-2xl border border-white/80 bg-white/95 p-2 opacity-0 shadow-xl backdrop-blur transition-all group-hover:visible group-hover:opacity-100">
+        <div class="invisible absolute left-0 top-full z-50 min-w-[300px] rounded-2xl border border-white/80 bg-white/95 p-2 opacity-0 shadow-xl backdrop-blur transition-all duration-200 group-hover:visible group-hover:opacity-100">
           {solutions.map((item) => (
             <a href={item.href} class="block rounded-xl px-4 py-2.5 text-sm font-medium text-ink hover:bg-purple-deep/5 hover:text-purple-deep">
               {item.label}
@@ -52,12 +54,7 @@ const switchPath = swapLangInPath(currentPath || Astro.url.pathname, lang, other
       <a href={switchPath} class="hidden text-xs font-semibold uppercase tracking-wide text-steel sm:inline hover:text-purple-deep" hreflang={otherLang}>
         {otherLang}
       </a>
-      <a href="https://app.joinnentropy.com/auth" class="hidden text-sm font-medium text-ink/70 sm:inline hover:text-purple-deep">
-        {strings.nav.login}
-      </a>
-      <a href="https://app.joinnentropy.com/auth" class="btn-phoenix hidden text-xs sm:inline-flex sm:text-sm">
-        {strings.nav.trial}
-      </a>
+      <ContactCTA lang={lang} label="demo" variant="phoenix" class="hidden text-xs sm:inline-flex sm:text-sm" />
       <button
         type="button"
         id="mobile-menu-btn"
@@ -70,7 +67,7 @@ const switchPath = swapLangInPath(currentPath || Astro.url.pathname, lang, other
     </div>
   </div>
 
-  <div id="mobile-menu" class="hidden border-t border-white/50 bg-cream/95 px-4 py-4 lg:hidden">
+  <div id="mobile-menu" class="hidden border-t border-ink/8 bg-white px-4 py-4 lg:hidden">
     <p class="mb-2 text-xs font-semibold uppercase tracking-wide text-steel">{strings.nav.solutions}</p>
     {solutions.map((item) => (
       <a href={item.href} class="block py-2 text-sm font-medium">{item.label}</a>
@@ -81,7 +78,7 @@ const switchPath = swapLangInPath(currentPath || Astro.url.pathname, lang, other
     <a href={langPath(lang, '/docs/integrations')} class="block py-2 text-sm">{strings.nav.docs}</a>
     <a href={langPath(lang, '/about')} class="block py-2 text-sm">{strings.nav.about}</a>
     <a href={langPath(lang, '/contact')} class="block py-2 text-sm">{strings.nav.contact}</a>
-    <a href={switchPath} class="mt-3 block py-2 text-sm font-semibold uppercase">{otherLang}</a>
+    <ContactCTA lang={lang} label="demo" variant="phoenix" class="mt-4 w-full justify-center" />
   </div>
 </header>
 

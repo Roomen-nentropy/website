@@ -5,7 +5,7 @@ date: 2026-05-15
 author: "Nentropy Team"
 tags: [eudr, compliance]
 locale: en
-coverImage: /assets/screenshot-dashboard.svg
+coverImage: /assets/screenshot-platform.png
 draft: false
 ---
 

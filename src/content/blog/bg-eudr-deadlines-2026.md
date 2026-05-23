@@ -5,7 +5,7 @@ date: 2026-05-15
 author: "Екип Nentropy"
 tags: [eudr, compliance]
 locale: bg
-coverImage: /assets/screenshot-dashboard.svg
+coverImage: /assets/screenshot-platform.png
 draft: false
 ---
 

@@ -1,3 +1,5 @@
+import typography from '@tailwindcss/typography';
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
@@ -29,6 +31,7 @@ export default {
       animation: {
         'fade-up': 'fadeUp 0.6s ease-out forwards',
         'float': 'float 6s ease-in-out infinite',
+        'pulse-slow': 'pulseSlow 8s ease-in-out infinite',
       },
       keyframes: {
         fadeUp: {
@@ -39,8 +42,12 @@ export default {
           '0%, 100%': { transform: 'translateY(0)' },
           '50%': { transform: 'translateY(-8px)' },
         },
+        pulseSlow: {
+          '0%, 100%': { opacity: '0.6', transform: 'scale(1)' },
+          '50%': { opacity: '1', transform: 'scale(1.05)' },
+        },
       },
     },
   },
-  plugins: [require('@tailwindcss/typography')],
+  plugins: [typography],
 };

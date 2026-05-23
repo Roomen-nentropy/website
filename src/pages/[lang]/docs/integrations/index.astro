@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import ContactCTA from '../../../../components/ContactCTA.astro';
 import { getCollection } from 'astro:content';
 import { t, langPath } from '../../../../i18n/ui';
 import type { Lang } from '../../../../i18n/types';
@@ -16,8 +17,8 @@ const docs = (await getCollection('docs'))
   .sort((a, b) => a.data.order - b.data.order);
 
 const intro = lang === 'bg'
-  ? 'API и интеграции за ERP екипи. Пълната конфигурация е в приложението на app.joinnentropy.com/integrations.'
-  : 'API and integrations for ERP teams. Full configuration lives in the app at app.joinnentropy.com/integrations.';
+  ? 'API и интеграции за ERP екипи. Техническата документация по-долу; за достъп и токени — свържете се с нас след демонстрация.'
+  : 'API and integrations for ERP teams. Technical reference below; for access and tokens, contact us after a demo.';
 ---
 
 <BaseLayout lang={lang} title={`${strings.docs.title} | Nentropy`} description={intro} currentPath={Astro.url.pathname}>
@@ -34,9 +35,7 @@ const intro = lang === 'bg'
           </a>
         ))}
       </nav>
-      <a href="https://app.joinnentropy.com/integrations" class="btn-phoenix mt-8 w-full text-center text-xs" target="_blank" rel="noopener">
-        {lang === 'bg' ? 'Отвори в приложението' : 'Open in app'}
-      </a>
+      <ContactCTA lang={lang} variant="phoenix" label="demo" class="mt-8 w-full text-center text-xs" />
     </aside>
     <main class="min-w-0 flex-1">
       <h1 class="text-4xl font-bold text-purple-deep">{strings.docs.title}</h1>
