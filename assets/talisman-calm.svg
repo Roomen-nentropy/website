@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 220">
+  <defs>
+    <linearGradient id="calm" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B3FA0"/>
+      <stop offset="100%" stop-color="#46628B"/>
+    </linearGradient>
+  </defs>
+  <rect width="280" height="220" rx="16" fill="#FAF7F2"/>
+  <!-- dashboard card -->
+  <rect x="150" y="40" width="110" height="140" rx="12" fill="white" stroke="#46628B" stroke-width="2" opacity="0.95"/>
+  <rect x="162" y="56" width="86" height="12" rx="4" fill="#3D1F5C" opacity="0.2"/>
+  <rect x="162" y="76" width="60" height="8" rx="3" fill="#22c55e" opacity="0.6"/>
+  <rect x="162" y="92" width="70" height="8" rx="3" fill="#46628B" opacity="0.3"/>
+  <rect x="162" y="108" width="50" height="8" rx="3" fill="#46628B" opacity="0.3"/>
+  <circle cx="230" cy="150" r="16" fill="#FFBA08" opacity="0.8"/>
+  <text x="224" y="154" font-size="10" fill="#2A2D33">QR</text>
+  <!-- character -->
+  <ellipse cx="90" cy="200" rx="44" ry="8" fill="#2A2D33" opacity="0.06"/>
+  <circle cx="90" cy="102" r="34" fill="url(#calm)"/>
+  <circle cx="80" cy="98" r="4" fill="#FAF7F2"/>
+  <circle cx="100" cy="98" r="4" fill="#FAF7F2"/>
+  <path d="M78 110 Q90 118 102 110" stroke="#FAF7F2" stroke-width="2" fill="none"/>
+  <rect x="66" y="136" width="48" height="44" rx="12" fill="#6B3FA0"/>
+</svg>

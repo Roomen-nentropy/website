@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://roomen-nentropy.github.io/website/sitemap-index.xml
